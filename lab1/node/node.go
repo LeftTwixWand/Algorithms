@@ -2,9 +2,8 @@ package node
 
 // Node is a struct, which implements item in linked list
 type Node struct {
-	Value    int
-	Next     *Node
-	Previous *Node
+	Value          int
+	Next, Previous *Node
 }
 
 // NewNode is a constructor, which returns pointer on new Node struct
