@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"./binaryheap"
 	"./linkedlist"
 )
 
@@ -22,8 +23,19 @@ func useLinkedList() {
 	fmt.Println("Count items = ", myList.Count)
 }
 
-func main() {
+func useBinaryHeap() {
 
-	useLinkedList()
+	myHeap := binaryheap.BinaryHeap{}
+
+	myHeap.Push(2)
+	myHeap.Push(2)
+	myHeap.Push(3)
+	myHeap.Push(3)
+	myHeap.Push(1)
+
+	myHeap.Print()
+}
+
+func main() {
 
 }
