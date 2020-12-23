@@ -81,14 +81,14 @@ func (heap *BinaryHeap) Pop() (int, bool) {
 	return val, true
 }
 
-func (heap *BinaryHeap) up(item int) {
+func (heap *BinaryHeap) up(index int) {
 	for {
-		parentItem := (item - 1) / 2
-		if item == 0 || heap.data[parentItem] <= heap.data[item] {
+		parentIndex := (index - 1) / 2
+		if index == 0 || heap.data[parentIndex] <= heap.data[index] {
 			break
 		}
-		heap.data[item], heap.data[parentItem] = heap.data[parentItem], heap.data[item]
-		item = parentItem
+		heap.data[index], heap.data[parentIndex] = heap.data[parentIndex], heap.data[index]
+		index = parentIndex
 	}
 }
 
