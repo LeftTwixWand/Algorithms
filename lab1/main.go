@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"./binaryheap"
+	"./enterprice"
 	"./linkedlist"
 )
 
@@ -27,12 +29,11 @@ func useBinaryHeap() {
 
 	myHeap := binaryheap.BinaryHeap{}
 
-	myHeap.Push(5)
-	myHeap.Push(2)
-	myHeap.Push(1)
-	myHeap.Push(3)
-	myHeap.Push(3)
-	myHeap.Push(1)
+	myHeap.Push(enterprice.NewEnterprice("name1", "address1", time.January, 2001, 1))
+	myHeap.Push(enterprice.NewEnterprice("name2", "address2", time.February, 2002, 2))
+	myHeap.Push(enterprice.NewEnterprice("name3", "address3", time.March, 2003, 3))
+	myHeap.Push(enterprice.NewEnterprice("name4", "address4", time.April, 2004, 4))
+	myHeap.Push(enterprice.NewEnterprice("name11", "address11", time.May, 2011, 1))
 
 	myHeap.Print()
 }

@@ -4,17 +4,19 @@ import (
 	"fmt"
 	"math"
 	"strings"
+
+	"../enterprice"
 )
 
 // BinaryHeap is a binary search tree with a prioritet
 type BinaryHeap struct {
-	data []int
+	data []enterprice.Enterprice
 }
 
 // NewBinaryHeap is a constructor, which returns pointer on a new heap object
-func NewBinaryHeap(values ...int) *BinaryHeap {
+func NewBinaryHeap(values ...enterprice.Enterprice) *BinaryHeap {
 	heap := &BinaryHeap{
-		data: append([]int{}, values...),
+		data: append([]enterprice.Enterprice{}, values...),
 	}
 
 	for i := len(heap.data)/2 - 1; i >= 0; i-- {
@@ -38,12 +40,12 @@ func (heap *BinaryHeap) down(item int) {
 		}
 
 		right := childItem + 1
-		if right < len(heap.data) && heap.data[childItem] >= heap.data[right] {
+		if right < len(heap.data) && heap.data[childItem].Profit >= heap.data[right].Profit {
 			childItem = right
 		}
 
 		// swap
-		if heap.data[childItem] >= heap.data[item] {
+		if heap.data[childItem].Profit >= heap.data[item].Profit {
 			break
 		}
 
@@ -62,15 +64,15 @@ func (heap *BinaryHeap) nodeAt(index int) *Binder {
 }
 
 // Push is a method, which allows to add a new item to the heap
-func (heap *BinaryHeap) Push(value int) {
+func (heap *BinaryHeap) Push(value enterprice.Enterprice) {
 	heap.data = append(heap.data, value)
 	heap.up(len(heap.data) - 1)
 }
 
 // Pop is a method, which returns the first item of heap
-func (heap *BinaryHeap) Pop() (int, bool) {
+func (heap *BinaryHeap) Pop() (*enterprice.Enterprice, bool) {
 	if len(heap.data) == 0 {
-		return 0, false
+		return nil, false
 	}
 
 	val := heap.data[0]
@@ -78,13 +80,13 @@ func (heap *BinaryHeap) Pop() (int, bool) {
 	heap.data = heap.data[:len(heap.data)-1]
 	heap.down(0)
 
-	return val, true
+	return &val, true
 }
 
 func (heap *BinaryHeap) up(index int) {
 	for {
 		parentIndex := (index - 1) / 2
-		if index == 0 || heap.data[parentIndex] <= heap.data[index] {
+		if index == 0 || heap.data[parentIndex].Profit <= heap.data[index].Profit {
 			break
 		}
 		heap.data[index], heap.data[parentIndex] = heap.data[parentIndex], heap.data[index]
@@ -118,7 +120,7 @@ func (heap *BinaryHeap) Print() {
 		}
 
 		// node value
-		fmt.Printf(" %d ", node.Value())
+		fmt.Printf(" %d ", node.Value().Profit)
 
 		// right-side whitespaces
 		if rightChild := node.RightChild(); rightChild != nil {
@@ -170,8 +172,8 @@ type Binder struct {
 }
 
 // Value is a method, which returns a value of node
-func (binder *Binder) Value() int {
-	return binder.heap.data[binder.index]
+func (binder *Binder) Value() *enterprice.Enterprice {
+	return &binder.heap.data[binder.index]
 }
 
 // Parent is a method, which returns a parrent of node
@@ -212,11 +214,11 @@ func (binder *Binder) Height() int {
 
 func (binder *Binder) calcValueWidth() int {
 	v := binder.Value()
-	if v == 0 {
+	if v.Profit == 0 {
 		return 3
 	}
 
-	return int(math.Log10(float64(v))) + 3
+	return int(math.Log10(float64(v.Profit))) + 3
 }
 
 func (binder *Binder) calcPrintWidth() int {
@@ -254,14 +256,14 @@ func (binder *Binder) findRightParent() *Binder {
 
 func (binder *Binder) validate() bool {
 	if leftChild := binder.LeftChild(); leftChild != nil {
-		if leftChild.Value() < binder.Value() || !leftChild.validate() {
-			fmt.Printf("SELF: %d / LEFT: %d\n", binder.Value(), leftChild.Value())
+		if leftChild.Value().Profit < binder.Value().Profit || !leftChild.validate() {
+			fmt.Printf("SELF: %d / LEFT: %d\n", binder.Value().Profit, leftChild.Value().Profit)
 			return false
 		}
 	}
 	if rightChild := binder.RightChild(); rightChild != nil {
-		if rightChild.Value() < binder.Value() || !rightChild.validate() {
-			fmt.Printf("SELF: %d / RIGHT: %d\n", binder.Value(), rightChild.Value())
+		if rightChild.Value().Profit < binder.Value().Profit || !rightChild.validate() {
+			fmt.Printf("SELF: %d / RIGHT: %d\n", binder.Value().Profit, rightChild.Value().Profit)
 			return false
 		}
 	}

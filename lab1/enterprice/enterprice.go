@@ -12,8 +12,8 @@ type Enterprice struct {
 }
 
 // NewEnterprice is a constructor, which returns a pointer of new enterprice structure
-func NewEnterprice(name, address string, month time.Month, year, profit int) *Enterprice {
-	return &Enterprice{
+func NewEnterprice(name, address string, month time.Month, year, profit int) Enterprice {
+	return Enterprice{
 		Name:    name,
 		Address: address,
 		Month:   month,
