@@ -165,6 +165,21 @@ func (heap *BinaryHeap) Validate() bool {
 	return true
 }
 
+// Return top 25 the most profit companies
+func (heap *BinaryHeap) GetTop25() []enterprice.Enterprice {
+
+	if heap.Count() > 0 {
+		var top25 []enterprice.Enterprice
+		for i := 0; i < heap.Count()/4; i++ {
+			top25 = append(top25, heap.data[i])
+		}
+
+		return top25
+	}
+
+	return nil
+}
+
 // Binder is a struct which works like a node in BinaryHeap
 type Binder struct {
 	heap  *BinaryHeap
