@@ -165,7 +165,7 @@ func (heap *BinaryHeap) Validate() bool {
 	return true
 }
 
-// Return top 25 the most profit companies
+// GetTop25 returns top 25 the most profit companies
 func (heap *BinaryHeap) GetTop25() []enterprice.Enterprice {
 
 	if heap.Count() > 0 {
