@@ -2,8 +2,6 @@ package hashtable
 
 import (
 	"fmt"
-
-	"../keyvaluepair"
 )
 
 // HashTable is a data structure

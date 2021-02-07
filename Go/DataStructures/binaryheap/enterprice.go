@@ -1,4 +1,4 @@
-package enterprice
+package binaryheap
 
 import "time"
 

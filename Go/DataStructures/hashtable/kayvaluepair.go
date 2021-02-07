@@ -1,4 +1,4 @@
-package keyvaluepair
+package hashtable
 
 // KeyValuePair is a data structude for a Chaining Hash Table
 type KeyValuePair struct {

@@ -2,21 +2,19 @@ package linkedlist
 
 import (
 	"fmt"
-
-	"../node"
 )
 
 // LinkedList data structure type
 type LinkedList struct {
-	Count int        // exported field
-	first *node.Node // exported field
-	last  *node.Node //
+	Count int
+	first *Node
+	last  *Node
 }
 
 // PushFront method
-func (list *LinkedList) PushFront(item int) *node.Node {
+func (list *LinkedList) PushFront(item int) *Node {
 
-	tempNode := node.NewNode(item)
+	tempNode := NewNode(item)
 	list.Count++
 
 	if list.first == nil {
@@ -33,8 +31,8 @@ func (list *LinkedList) PushFront(item int) *node.Node {
 }
 
 // PushBackSingle method implementation for single linked list
-func (list *LinkedList) PushBackSingle(item int) *node.Node {
-	tmpNode := node.NewNode(item)
+func (list *LinkedList) PushBackSingle(item int) *Node {
+	tmpNode := NewNode(item)
 
 	list.Count++
 	if list.first == nil {
@@ -52,9 +50,9 @@ func (list *LinkedList) PushBackSingle(item int) *node.Node {
 }
 
 // PushBackDouble allows us to push new item at the back of a list
-func (list *LinkedList) PushBackDouble(item int) *node.Node {
+func (list *LinkedList) PushBackDouble(item int) *Node {
 
-	tmpNode := node.NewNode(item)
+	tmpNode := NewNode(item)
 	list.Count++
 
 	if list.last == nil {
@@ -86,8 +84,8 @@ func (list *LinkedList) PrintReverse() {
 }
 
 // InsertAt is a method, which allows to insert some item after specific node
-func (list *LinkedList) InsertAt(myNode *node.Node, item int) *node.Node {
-	tmpNode := node.NewNode(item)
+func (list *LinkedList) InsertAt(myNode *Node, item int) *Node {
+	tmpNode := NewNode(item)
 	tmpNode.Previous = myNode
 	tmpNode.Next = myNode.Next
 	myNode.Next = tmpNode
@@ -96,7 +94,7 @@ func (list *LinkedList) InsertAt(myNode *node.Node, item int) *node.Node {
 }
 
 // DeleteAt is a method, which allows to delete some item from the list
-func (list *LinkedList) DeleteAt(item *node.Node) {
+func (list *LinkedList) DeleteAt(item *Node) {
 
 	list.Count--
 	if item.Previous == nil { // If item is last
@@ -117,7 +115,7 @@ func (list *LinkedList) DeleteAt(item *node.Node) {
 }
 
 // Find is a method, which returns pointer of the first quality item
-func (list *LinkedList) Find(value int) *node.Node {
+func (list *LinkedList) Find(value int) *Node {
 
 	for currentNode := list.first; currentNode != nil; currentNode = currentNode.Next {
 		if currentNode.Value == value {

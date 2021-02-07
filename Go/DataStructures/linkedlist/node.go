@@ -1,4 +1,4 @@
-package node
+package linkedlist
 
 // Node is a struct, which implements item in linked list
 type Node struct {
