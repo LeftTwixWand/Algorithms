@@ -1,2 +1,1 @@
-# AlgorithmsZNTU
-Algorithms and data structures lab works.
+# In this repository I'm practice in algorithms and data structures
