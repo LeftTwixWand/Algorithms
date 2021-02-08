@@ -5,7 +5,7 @@ import (
 
 	// "./binaryheap"
 	// "./enterprice"
-	"./linkedlist"
+	"github.com/LeftTwixWand/Algorithms/Go/DataStructures/linkedlist"
 )
 
 func useLinkedList() {
