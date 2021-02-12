@@ -4,19 +4,17 @@ import (
 	"fmt"
 	"math"
 	"strings"
-
-	"../enterprice"
 )
 
 // BinaryHeap is a binary search tree with a prioritet
 type BinaryHeap struct {
-	data []enterprice.Enterprice
+	data []Enterprice
 }
 
 // NewBinaryHeap is a constructor, which returns pointer on a new heap object
-func NewBinaryHeap(values ...enterprice.Enterprice) *BinaryHeap {
+func NewBinaryHeap(values ...Enterprice) *BinaryHeap {
 	heap := &BinaryHeap{
-		data: append([]enterprice.Enterprice{}, values...),
+		data: append([]Enterprice{}, values...),
 	}
 
 	for i := len(heap.data)/2 - 1; i >= 0; i-- {
@@ -64,13 +62,13 @@ func (heap *BinaryHeap) nodeAt(index int) *Binder {
 }
 
 // Push is a method, which allows to add a new item to the heap
-func (heap *BinaryHeap) Push(value enterprice.Enterprice) {
+func (heap *BinaryHeap) Push(value Enterprice) {
 	heap.data = append(heap.data, value)
 	heap.up(len(heap.data) - 1)
 }
 
 // Pop is a method, which returns the first item of heap
-func (heap *BinaryHeap) Pop() (*enterprice.Enterprice, bool) {
+func (heap *BinaryHeap) Pop() (*Enterprice, bool) {
 	if len(heap.data) == 0 {
 		return nil, false
 	}
@@ -166,10 +164,10 @@ func (heap *BinaryHeap) Validate() bool {
 }
 
 // GetTop25 returns top 25 the most profit companies
-func (heap *BinaryHeap) GetTop25() []enterprice.Enterprice {
+func (heap *BinaryHeap) GetTop25() []Enterprice {
 
 	if heap.Count() > 0 {
-		var top25 []enterprice.Enterprice
+		var top25 []Enterprice
 		for i := 0; i < heap.Count()/4; i++ {
 			top25 = append(top25, heap.data[i])
 		}

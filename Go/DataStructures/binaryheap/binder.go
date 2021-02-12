@@ -3,8 +3,6 @@ package binaryheap
 import (
 	"fmt"
 	"math"
-
-	"../enterprice"
 )
 
 // Binder is a struct which works like a node in BinaryHeap for printing a heap
@@ -14,7 +12,7 @@ type Binder struct {
 }
 
 // Value is a method, which returns a value of node
-func (binder *Binder) Value() *enterprice.Enterprice {
+func (binder *Binder) Value() *Enterprice {
 	return &binder.heap.data[binder.index]
 }
 
