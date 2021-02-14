@@ -7,7 +7,7 @@ type KeyValuePair struct {
 	Next  *KeyValuePair
 }
 
-// New is a constructor for the KeyValuePair structure
-func New(key string, value interface{}) *KeyValuePair {
+// NewKeyValuePair is a constructor for the KeyValuePair structure
+func NewKeyValuePair(key string, value interface{}) *KeyValuePair {
 	return &KeyValuePair{Key: key, Value: value}
 }
