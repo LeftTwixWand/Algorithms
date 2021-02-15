@@ -1,6 +1,7 @@
 package hashtable
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"text/tabwriter"
@@ -24,11 +25,20 @@ func New(size int) *HashTable {
 func (table *HashTable) Get(key int) interface{} {
 	item := table.getNodeByHash(table.hash(key))
 
-	if item != nil {
-		return item.Value
+	return item.Value
+}
+
+func (table *HashTable) Add(item *KeyValuePair) (error, bool) {
+
+	if item == nil {
+		return errors.New("KeyValuePair is nil"), false
 	}
 
-	return nil
+	hash := table.hash(item.Key)
+	table.data[hash] = item
+
+	return nil, true
+
 }
 
 func (table *HashTable) getNodeByHash(hash int) *KeyValuePair {
@@ -43,15 +53,15 @@ func (table *HashTable) hash(key int) int {
 // Print is a test method for printion all the table
 func (table *HashTable) Print() {
 
-	// for _, item := range table.data {
-	// 	fmt.Println("Key = ", item.Key, "Value = ", item.Value)
-	// }
-
 	const padding = 3
-	writer := tabwriter.NewWriter(os.Stdout, 0, 0, padding, '-', tabwriter.AlignRight|tabwriter.Debug)
-	fmt.Fprintln(writer, "a\tb\taligned\t")
-	fmt.Fprintln(writer, "aa\tbb\taligned\t")
-	fmt.Fprintln(writer, "aaa\tbbb\tunaligned") // no trailing tab
-	fmt.Fprintln(writer, "aaaa\tbbbb\taligned\t")
+	writer := tabwriter.NewWriter(os.Stdout, 0, 0, padding, '-', tabwriter.Debug)
+
+	for _, item := range table.data {
+
+		fmt.Println("Key = ", item.Key, "Value = ", item.Value)
+
+		fmt.Fprintln(writer, "Key: ", item.Key, "\t Value: ", item.Value)
+	}
+
 	writer.Flush()
 }
