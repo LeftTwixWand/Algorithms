@@ -13,7 +13,7 @@ type HashTable struct {
 }
 
 // New is a constructor for the HashTable structure
-func (table *HashTable) New(size int) *HashTable {
+func New(size int) *HashTable {
 	return &HashTable{
 		data:     make([]*KeyValuePair, size),
 		Capacity: size,
@@ -48,10 +48,10 @@ func (table *HashTable) Print() {
 	// }
 
 	const padding = 3
-	w := tabwriter.NewWriter(os.Stdout, 0, 0, padding, '-', tabwriter.AlignRight|tabwriter.Debug)
-	fmt.Fprintln(w, "a\tb\taligned\t")
-	fmt.Fprintln(w, "aa\tbb\taligned\t")
-	fmt.Fprintln(w, "aaa\tbbb\tunaligned") // no trailing tab
-	fmt.Fprintln(w, "aaaa\tbbbb\taligned\t")
-	w.Flush()
+	writer := tabwriter.NewWriter(os.Stdout, 0, 0, padding, '-', tabwriter.AlignRight|tabwriter.Debug)
+	fmt.Fprintln(writer, "a\tb\taligned\t")
+	fmt.Fprintln(writer, "aa\tbb\taligned\t")
+	fmt.Fprintln(writer, "aaa\tbbb\tunaligned") // no trailing tab
+	fmt.Fprintln(writer, "aaaa\tbbbb\taligned\t")
+	writer.Flush()
 }
