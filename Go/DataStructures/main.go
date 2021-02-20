@@ -54,14 +54,11 @@ func useBinaryHeap() {
 func useHashTable() {
 
 	dictionary := hashtable.New(15)
-	result, isAdded := dictionary.Add(hashtable.NewKeyValuePair(0, 4))
-	dictionary.Add(hashtable.NewKeyValuePair(1, 3))
-	dictionary.Add(hashtable.NewKeyValuePair(2, 123))
-	dictionary.Add(hashtable.NewKeyValuePair(3, 123124))
+	dictionary.Add(hashtable.NewKeyValuePair(0, 0))
+	dictionary.Add(hashtable.NewKeyValuePair(15, 15))
 
-	fmt.Println(result)
-	fmt.Println(isAdded)
 	dictionary.Print()
+
 }
 
 func main() {

@@ -28,16 +28,37 @@ func (table *HashTable) Get(key int) interface{} {
 	return item.Value
 }
 
-func (table *HashTable) Add(item *KeyValuePair) (error, bool) {
+// Add is a method to and a new item to the table
+func (table *HashTable) Add(item *KeyValuePair) (bool, error) {
 
 	if item == nil {
-		return errors.New("KeyValuePair is nil"), false
+		return false, errors.New("KeyValuePair is nil")
 	}
 
 	hash := table.hash(item.Key)
-	table.data[hash] = item
 
-	return nil, true
+	if table.data[hash] == nil {
+		table.data[hash] = item
+		return true, nil
+	}
+
+	for i := hash + 1; i < len(table.data); i++ {
+
+		if table.data[i] == nil {
+			table.data[i] = item
+			return true, nil
+		}
+	}
+
+	for i := 0; i < hash; i++ {
+
+		if table.data[i] == nil {
+			table.data[i] = item
+			return true, nil
+		}
+	}
+
+	return false, errors.New("Array length limit error")
 
 }
 
@@ -47,18 +68,22 @@ func (table *HashTable) getNodeByHash(hash int) *KeyValuePair {
 
 // hash is a method, which returns a hash for the specific key
 func (table *HashTable) hash(key int) int {
-	return (key % table.Capacity) / 100
+	return key % table.Capacity
 }
 
 // Print is a test method for printion all the table
 func (table *HashTable) Print() {
 
 	const padding = 3
-	writer := tabwriter.NewWriter(os.Stdout, 0, 0, padding, '-', tabwriter.Debug)
+	writer := tabwriter.NewWriter(os.Stdout, 0, 0, padding, ' ', tabwriter.TabIndent)
 
 	for _, item := range table.data {
 
-		fmt.Println("Key = ", item.Key, "Value = ", item.Value)
+		if item == nil {
+			continue
+		}
+
+		// fmt.Println("Key = ", item.Key, "Value = ", item.Value)
 
 		fmt.Fprintln(writer, "Key: ", item.Key, "\t Value: ", item.Value)
 	}
