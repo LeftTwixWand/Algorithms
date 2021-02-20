@@ -23,9 +23,36 @@ func New(size int) *HashTable {
 
 // Get returns a value of a specific key
 func (table *HashTable) Get(key int) interface{} {
-	item := table.getNodeByHash(table.hash(key))
+	hash := table.hash(key)
+	item := table.getNodeByHash(hash)
 
-	return item.Value
+	if item.Key == key {
+		return item.Value
+	}
+
+	for i := hash + 1; i < len(table.data); i++ {
+
+		if table.data[i] == nil {
+			continue
+		}
+
+		if table.data[i].Key == key {
+			return table.data[i].Value
+		}
+	}
+
+	for i := 0; i < hash; i++ {
+
+		if table.data[i] == nil {
+			continue
+		}
+
+		if table.data[i].Key == key {
+			return table.data[i].Value
+		}
+	}
+
+	return errors.New(fmt.Sprint("No items was find with key: ", key))
 }
 
 // Add is a method to and a new item to the table
@@ -59,7 +86,43 @@ func (table *HashTable) Add(item *KeyValuePair) (bool, error) {
 	}
 
 	return false, errors.New("Array length limit error")
+}
 
+// Remove is a methid, which removes an item with specific key
+func (table *HashTable) Remove(key int) (bool, error) {
+	hash := table.hash(key)
+	item := table.getNodeByHash(hash)
+
+	if item.Key == key {
+		table.data[hash] = nil
+		return true, nil
+	}
+
+	for i := hash + 1; i < len(table.data); i++ {
+
+		if table.data[i] == nil {
+			continue
+		}
+
+		if table.data[i].Key == key {
+			table.data[i] = nil
+			return true, nil
+		}
+	}
+
+	for i := 0; i < hash; i++ {
+
+		if table.data[i] == nil {
+			continue
+		}
+
+		if table.data[i].Key == key {
+			table.data[i] = nil
+			return true, nil
+		}
+	}
+
+	return false, errors.New(fmt.Sprint("No items was find with key: ", key))
 }
 
 func (table *HashTable) getNodeByHash(hash int) *KeyValuePair {

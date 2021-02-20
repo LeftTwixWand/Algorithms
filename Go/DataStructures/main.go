@@ -57,6 +57,8 @@ func useHashTable() {
 	dictionary.Add(hashtable.NewKeyValuePair(0, 0))
 	dictionary.Add(hashtable.NewKeyValuePair(15, 15))
 
+	dictionary.Remove(0)
+
 	dictionary.Print()
 
 }
