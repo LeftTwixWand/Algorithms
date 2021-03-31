@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/LeftTwixWand/Algorithms/Go/DataStructures/binaryheap"
+	"github.com/LeftTwixWand/Algorithms/Go/DataStructures/binarytree"
 	"github.com/LeftTwixWand/Algorithms/Go/DataStructures/hashtable"
 	"github.com/LeftTwixWand/Algorithms/Go/DataStructures/linkedlist"
 )
@@ -60,12 +61,25 @@ func useHashTable() {
 	dictionary.Remove(0)
 
 	dictionary.Print()
+}
 
+func useBinaryTree() {
+
+	node := binarytree.NewNode(2)
+	tree := binarytree.New(node)
+
+	tree.Insert(1)
+	tree.Insert(3)
+	tree.Insert(4)
+
+	tree.Print()
 }
 
 func main() {
 
 	// useLinkedList()
 	// useBinaryHeap()
-	useHashTable()
+	// useHashTable()
+
+	useBinaryTree()
 }

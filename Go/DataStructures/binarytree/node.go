@@ -2,6 +2,8 @@ package binarytree
 
 import (
 	"errors"
+	"strconv"
+	"strings"
 )
 
 // Node is a data structure for the binatytree
@@ -47,3 +49,66 @@ func (node *Node) Insert(item int) (bool, error) {
 
 	return false, errors.New("Error in processing")
 }
+
+// PrintNode allows to print tree by root node
+func (node *Node) PrintNode(markup *[]string, level int) {
+
+	if len(*markup) < level+1 {
+		*markup = append(*markup, "")
+	}
+
+	if node == nil {
+		(*markup)[level] += "+.. ..+  "
+
+		return
+	}
+
+	if node.Left != nil {
+		(*markup)[level] += "+--"
+	}
+	(*markup)[level] += strconv.Itoa(node.Value)
+	if node.Right != nil {
+		(*markup)[level] += "--+"
+	}
+	(*markup)[level] += "     "
+
+	node.Left.PrintNode(markup, level+1)
+	node.Right.PrintNode(markup, level+1)
+}
+
+// |..data..| - mask, value - number, capacity - value capacity
+func applyMask(mask string, value, capacity int) string {
+
+	return strings.Replace(mask, "data", strconv.Itoa(value), 0)
+}
+
+func insertAt(basic, value string, pos int) string {
+	return basic[:pos] + value + basic[pos:]
+}
+
+// func (node *Node) PrintNode(markup *[]string, level int) {
+
+// 	if len(*markup) < level+1 {
+// 		*markup = append(*markup, "")
+// 	}
+
+// 	if node.Left != nil {
+// 		(*markup)[level] += "+--"
+
+// 		node.Left.PrintNode(markup, level+1)
+// 	} else {
+// 		(*markup)[level] += "   "
+// 	}
+
+// 	(*markup)[level] += strconv.Itoa(node.Value)
+
+// 	if node.Right != nil {
+// 		(*markup)[level] += "--+"
+
+// 		node.Right.PrintNode(markup, level+1)
+// 	} else {
+// 		(*markup)[level] += "   "
+// 	}
+
+// 	// *markup += "\n" + strconv.Itoa(node.Value)
+// }
