@@ -68,9 +68,16 @@ func useBinaryTree() {
 	node := binarytree.NewNode(2)
 	tree := binarytree.New(node)
 
-	tree.Insert(1)
-	tree.Insert(3)
+	tree.Insert(0)
+
+	tree.Insert(2)
+
 	tree.Insert(4)
+
+	tree.Insert(6)
+
+	tree.Insert(8)
+	tree.Insert(9)
 
 	tree.Print()
 }
@@ -81,5 +88,81 @@ func main() {
 	// useBinaryHeap()
 	// useHashTable()
 
-	useBinaryTree()
+	// useBinaryTree()
+
+	// a := calculatePrefix(0)
+	// fmt.Println(a)
+	// b := calculatePrefix(1)
+	// fmt.Println(b)
+	a := calculateIndent(0)
+	fmt.Println(a)
+	b := calculateIndent(1)
+	fmt.Println(b)
+	c := calculateIndent(2)
+	fmt.Println(c)
+	d := calculateIndent(3)
+	fmt.Println(d)
+	e := calculateIndent(4)
+	fmt.Println(e)
+	f := calculateIndent(5)
+	fmt.Println(f)
+
+	// d := calculatePrefix(8)
+	// fmt.Println(d)
+}
+
+func calculatePrefix(level int) string {
+
+	// A format has the next structure:
+	// lvl2   |   +---k---+
+	// lvl1   | +-k-+   +-k-+
+	// lvl0   |+k+ +k+ +k+ +k+
+	// lvl -1 |k k k k k k k k
+
+	// So, prefix has the next structure: lvl * 2 + 1
+
+	result := ""
+
+	if level == -1 {
+		return result
+	}
+
+	for i := 0; i < level; i++ {
+		result += " "
+	}
+
+	result += "+"
+
+	for i := 0; i < level; i++ {
+
+		if IsCentralIndex(i, level) || level == 1 {
+			result += "+"
+			continue
+		}
+
+		if i > level/2 {
+			result += "-"
+			continue
+		}
+
+		result += " "
+	}
+
+	return result
+}
+
+func IsCentralIndex(index, value int) bool {
+
+	centralIndex := (value-1)/2 + 1
+	return index == centralIndex
+}
+
+func calculateIndent(level int) int {
+
+	if level == 0 {
+		return 0
+	}
+
+	return calculateIndent(level-1)*2 + 1
+
 }

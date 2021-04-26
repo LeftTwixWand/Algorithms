@@ -3,7 +3,6 @@ package binarytree
 import (
 	"errors"
 	"strconv"
-	"strings"
 )
 
 // Node is a data structure for the binatytree
@@ -57,58 +56,45 @@ func (node *Node) PrintNode(markup *[]string, level int) {
 		*markup = append(*markup, "")
 	}
 
-	if node == nil {
-		(*markup)[level] += "+.. ..+  "
-
-		return
-	}
-
-	if node.Left != nil {
-		(*markup)[level] += "+--"
-	}
-	(*markup)[level] += strconv.Itoa(node.Value)
-	if node.Right != nil {
-		(*markup)[level] += "--+"
-	}
-	(*markup)[level] += "     "
+	prefix := calculatePrefix(level)
+	postfix := calculatePostfix(level)
+	(*markup)[level] += prefix + strconv.Itoa(node.Value) + postfix
 
 	node.Left.PrintNode(markup, level+1)
 	node.Right.PrintNode(markup, level+1)
 }
 
-// |..data..| - mask, value - number, capacity - value capacity
-func applyMask(mask string, value, capacity int) string {
+func calculatePrefix(level int) string {
 
-	return strings.Replace(mask, "data", strconv.Itoa(value), 0)
+	result := ""
+
+	for i := 0; i < level; i++ {
+
+		if i%2 == 1 || i == 1 {
+			result += "+"
+			continue
+		}
+
+		if i > level/2 {
+			result += "-"
+			continue
+		}
+
+		result += " "
+	}
+
+	return result
 }
 
-func insertAt(basic, value string, pos int) string {
-	return basic[:pos] + value + basic[pos:]
+func calculatePostfix(level int) string {
+
+	result := ""
+
+	for i := 0; i < level; i++ {
+		if i == 0 {
+
+		}
+	}
+
+	return result
 }
-
-// func (node *Node) PrintNode(markup *[]string, level int) {
-
-// 	if len(*markup) < level+1 {
-// 		*markup = append(*markup, "")
-// 	}
-
-// 	if node.Left != nil {
-// 		(*markup)[level] += "+--"
-
-// 		node.Left.PrintNode(markup, level+1)
-// 	} else {
-// 		(*markup)[level] += "   "
-// 	}
-
-// 	(*markup)[level] += strconv.Itoa(node.Value)
-
-// 	if node.Right != nil {
-// 		(*markup)[level] += "--+"
-
-// 		node.Right.PrintNode(markup, level+1)
-// 	} else {
-// 		(*markup)[level] += "   "
-// 	}
-
-// 	// *markup += "\n" + strconv.Itoa(node.Value)
-// }
