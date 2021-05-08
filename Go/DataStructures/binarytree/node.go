@@ -56,45 +56,83 @@ func (node *Node) PrintNode(markup *[]string, level int) {
 		*markup = append(*markup, "")
 	}
 
-	prefix := calculatePrefix(level)
-	postfix := calculatePostfix(level)
-	(*markup)[level] += prefix + strconv.Itoa(node.Value) + postfix
+	prefix := buildPrefix(level)
+	// postfix := calculatePostfix(level)
+	(*markup)[level] += prefix + strconv.Itoa(node.Value) + reverse(prefix) + " "
 
 	node.Left.PrintNode(markup, level+1)
 	node.Right.PrintNode(markup, level+1)
 }
 
-func calculatePrefix(level int) string {
+func buildPrefix(level int) string {
+
+	// A format has the next structure:
+	// lvl2   |   +---k---+
+	// lvl1   | +-k-+   +-k-+
+	// lvl0   |+k+ +k+ +k+ +k+
+	// lvl -1 |k k k k k k k k
+
+	// So, prefix has the next structure: lvl * 2 + 1
 
 	result := ""
 
-	for i := 0; i < level; i++ {
+	indent := calculateFullPrefixIndent(level)
+	centralIndex := getCentralIndex(indent)
 
-		if i%2 == 1 || i == 1 {
-			result += "+"
-			continue
-		}
+	result += getPrefixWhiteSpaces(centralIndex)
 
-		if i > level/2 {
-			result += "-"
-			continue
-		}
+	if indent > 0 {
+		result += "+"
+	}
 
-		result += " "
+	result += getPrefixRelations(centralIndex)
+
+	return result
+}
+
+func reverse(text string) string {
+
+	result := ""
+
+	textLength := len(text)
+
+	for i := textLength; i > 0; i-- {
+		result += string(text[i])
 	}
 
 	return result
 }
 
-func calculatePostfix(level int) string {
+func getCentralIndex(number int) int {
+	return (number-1)/2 + 1
+}
 
-	result := ""
+func calculateFullPrefixIndent(level int) int {
 
-	for i := 0; i < level; i++ {
-		if i == 0 {
-
-		}
+	if level == 0 {
+		return 0
 	}
 
-	return result
+	return calculateFullPrefixIndent(level-1)*2 + 1
+}
+
+func getPrefixWhiteSpaces(centralIndex int) string {
+
+	prefix := ""
+
+	for i := 0; i < centralIndex-1; i++ {
+		prefix += " "
+	}
+
+	return prefix
+}
+
+func getPrefixRelations(centralIndex int) string {
+	prefix := ""
+
+	for i := 0; i < centralIndex-1; i++ {
+		prefix += "-"
+	}
+
+	return prefix
 }
