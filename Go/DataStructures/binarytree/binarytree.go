@@ -38,7 +38,7 @@ func (tree *BinaryTree) Print() {
 	var markup []string
 	tree.Root.PrintNode(&markup, 0)
 
-	for _, item := range markup {
-		fmt.Println(item)
+	for i := len(markup) - 1; i > 0; i-- {
+		fmt.Println(markup[i])
 	}
 }

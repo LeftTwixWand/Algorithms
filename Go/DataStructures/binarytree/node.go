@@ -60,8 +60,13 @@ func (node *Node) PrintNode(markup *[]string, level int) {
 	// postfix := calculatePostfix(level)
 	(*markup)[level] += prefix + strconv.Itoa(node.Value) + reverse(prefix) + " "
 
-	node.Left.PrintNode(markup, level+1)
-	node.Right.PrintNode(markup, level+1)
+	if node.Left != nil {
+		node.Left.PrintNode(markup, level+1)
+	}
+
+	if node.Right != nil {
+		node.Right.PrintNode(markup, level+1)
+	}
 }
 
 func buildPrefix(level int) string {
@@ -96,7 +101,7 @@ func reverse(text string) string {
 
 	textLength := len(text)
 
-	for i := textLength; i > 0; i-- {
+	for i := textLength - 1; i > 0; i-- {
 		result += string(text[i])
 	}
 
